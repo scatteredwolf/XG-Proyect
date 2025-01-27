@@ -34,6 +34,7 @@ use Exception;
 class PhysicShot
 {
     private $shipType;
+    private $fighters;
     private $damage;
     private $count;
     private $assorbedDamage = 0;

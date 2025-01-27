@@ -5,6 +5,7 @@ namespace App\Libraries\BattleEngine\Core;
 use App\Libraries\BattleEngine\Models\PlayerGroup;
 use App\Libraries\BattleEngine\Utils\Events;
 use App\Libraries\BattleEngine\Utils\Math;
+use App\Libraries\Functions;
 use Exception;
 
 /**
@@ -256,7 +257,8 @@ class BattleReport
                         $metal += $lost[0];
                         $crystal += $lost[1];
                     }
-                    $factor = constant(strtoupper($role) . '_DEBRIS_FACTOR');
+                    //$factor = constant(strtoupper($role) . '_DEBRIS_FACTOR');
+                    $factor = Functions::readConfig('fleet_cdr') / 100;
                     $sendMetal += $metal * $factor;
                     $sendCrystal += $crystal * $factor;
                 }
@@ -278,7 +280,8 @@ class BattleReport
                         $metal += $lost[0];
                         $crystal += $lost[1];
                     }
-                    $factor = constant(strtoupper($role) . '_DEBRIS_FACTOR');
+                    //$factor = constant(strtoupper($role) . '_DEBRIS_FACTOR');
+                    $factor = Functions::readConfig('defs_cdr') / 100;
                     $sendMetal += $metal * $factor;
                     $sendCrystal += $crystal * $factor;
                 }
