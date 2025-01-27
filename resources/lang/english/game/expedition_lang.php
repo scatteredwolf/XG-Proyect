@@ -85,6 +85,6 @@ $lang = [
     // old lines
     'exp_blackholl_1' => 'The fleet was sucked into a black hole is partially destroyed.',
     'exp_blackholl_2' => 'The fleet was sucked into a black hole, and was completely destroyed!',
-    'exp_found_goods' => 'The fleet has discovered an unmanned spacecraft! <br> His scouts have recovered %s de %s, %s de %s, %s de %s y %s de %s.',
+    'exp_found_goods' => 'The fleet has discovered an unmanned spacecraft! <br> His scouts have recovered %s %s, %s %s, %s %s and %s %s.',
     'exp_back_home' => 'Your expedition returned to the hangar.',
 ];
