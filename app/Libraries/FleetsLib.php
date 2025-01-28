@@ -151,7 +151,7 @@ class FleetsLib
 
     public static function getMaxExpeditions(int $astrophysicsTech): int
     {
-        return floor(sqrt($astrophysicsTech));
+        return floor(sqrt($astrophysicsTech)) + (($this->_premium->getCurrentPremium()->getPremiumOfficierAdmiral()) ? 1 : 0);
     }
 
     public static function getMaxColonies($astrophysicsTech): int
