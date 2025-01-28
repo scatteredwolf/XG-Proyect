@@ -38,7 +38,7 @@ class Premium
     /**
      * Get current premium
      *
-     * @return array
+     * @return PremiumEntity
      */
     public function getCurrentPremium()
     {

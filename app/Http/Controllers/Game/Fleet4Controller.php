@@ -463,7 +463,8 @@ class Fleet4Controller extends BaseController
         ) {
             $expeditions = $this->_fleets->getExpeditionsCount();
             $max_expeditions = FleetsLib::getMaxExpeditions(
-                $this->_research->getCurrentResearch()->getResearchAstrophysics()
+                $this->_research->getCurrentResearch()->getResearchAstrophysics(),
+				$this->_premium,
             );
 
             if ($max_expeditions <= 0) {

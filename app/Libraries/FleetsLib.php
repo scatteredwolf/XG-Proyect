@@ -8,6 +8,7 @@ use App\Core\Language;
 use App\Core\Objects;
 use App\Core\Template;
 use App\Helpers\UrlHelper;
+use App\Libraries\Premium\Premium;
 use App\Libraries\TimingLibrary as Timing;
 use CiLang;
 
@@ -149,9 +150,15 @@ class FleetsLib
         return OfficiersLib::getMaxComputer($computerTech, $amiralLevel);
     }
 
-    public static function getMaxExpeditions(int $astrophysicsTech): int
+    public static function getMaxExpeditions(int $astrophysicsTech, ?Premium $premium = null): int
     {
-        return floor(sqrt($astrophysicsTech)) + (($this->_premium->getCurrentPremium()->getPremiumOfficierAdmiral()) ? 1 : 0);
+		$max = floor(sqrt($astrophysicsTech));
+
+		if ($premium !== null) {
+			$max = $premium->getCurrentPremium()->getPremiumOfficierAdmiral() ? 1 : 0;
+		}
+
+        return $max;
     }
 
     public static function getMaxColonies($astrophysicsTech): int

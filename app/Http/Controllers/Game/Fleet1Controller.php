@@ -87,7 +87,8 @@ class Fleet1Controller extends BaseController
             ),
             'expeditions' => $this->_fleets->getExpeditionsCount(),
             'max_expeditions' => FleetsLib::getMaxExpeditions(
-                $this->_research->getCurrentResearch()->getResearchAstrophysics()
+                $this->_research->getCurrentResearch()->getResearchAstrophysics(),
+				$this->_premium,
             ),
             'no_slot' => $this->buildNoSlotBlock(),
             'list_of_ships' => $this->buildListOfShips(),

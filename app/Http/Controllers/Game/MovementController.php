@@ -106,7 +106,8 @@ class MovementController extends BaseController
             ),
             'expeditions' => $this->fleets->getExpeditionsCount(),
             'max_expeditions' => FleetsLib::getMaxExpeditions(
-                $this->research->getCurrentResearch()->getResearchAstrophysics()
+                $this->research->getCurrentResearch()->getResearchAstrophysics(),
+				$this->premium,
             ),
             'list_of_movements' => $this->buildMovements(),
         ];
