@@ -155,7 +155,7 @@ class FleetsLib
 		$max = floor(sqrt($astrophysicsTech));
 
 		if ($premium !== null) {
-			$max = $premium->getCurrentPremium()->getPremiumOfficierAdmiral() ? 1 : 0;
+			$max += $premium->getCurrentPremium()->getPremiumOfficierAdmiral() ? 1 : 0;
 		}
 
         return $max;
