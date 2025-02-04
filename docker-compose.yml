@@ -20,7 +20,8 @@ services:
     ports:
       - 33060:3306
     volumes:
-      - ./data:/docker-entrypoint-initdb.d
+      - ./data.d:/docker-entrypoint-initdb.d
+      - ./data:/var/lib/mysql
     environment:
       MYSQL_DATABASE: xgp
       MYSQL_ROOT_PASSWORD: root
