@@ -33,6 +33,8 @@ tests/_reports/
 # docker
 #
 data/xgp.sql
+data/
+data.d/
 
 #
 # IDE
