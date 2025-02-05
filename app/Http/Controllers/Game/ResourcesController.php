@@ -145,9 +145,9 @@ class ResourcesController extends BaseController
                 $this->planet['planet_crystal_perhour'] += $resourcesTotal['crystal'];
                 $this->planet['planet_deuterium_perhour'] += $resourcesTotal['deuterium'];
 
-                $metal = ProductionLib::currentProduction($metal_prod, $post_percent);
-                $crystal = ProductionLib::currentProduction($crystal_prod, $post_percent);
-                $deuterium = ProductionLib::currentProduction($deuterium_prod, $post_percent);
+                $metal = ProductionLib::currentProduction($metal_prod, $post_percent) * $game_resource_multiplier;
+                $crystal = ProductionLib::currentProduction($crystal_prod, $post_percent) * $game_resource_multiplier;
+                $deuterium = ProductionLib::currentProduction($deuterium_prod, $post_percent) * $game_resource_multiplier;
                 $energy = ProductionLib::currentProduction($energy, $post_percent);
                 $Field = 'planet_' . $this->resource[$ProdID] . '_percent';
                 $CurrRow = [];
