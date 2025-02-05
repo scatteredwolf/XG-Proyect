@@ -124,7 +124,9 @@ class HomeController extends BaseController
     private function checkUpdates(): bool
     {
         try {
-            if (function_exists('file_get_contents')) {
+            //hotfix
+            //negated to prevent issue 457 from original project
+            if (!function_exists('file_get_contents')) {
                 $file_data = @file_get_contents(
                     'https://updates.xgproyect.org/latest.php',
                     false,
