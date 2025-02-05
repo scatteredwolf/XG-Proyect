@@ -154,11 +154,17 @@ class FleetsLib
     {
 		$max = floor(sqrt($astrophysicsTech));
 
-		if ($premium !== null) {
-			$max += $premium->getCurrentPremium()->getPremiumOfficierAdmiral() ? 1 : 0;
+		if ($premium === null) {
+			return $max;
 		}
 
-        return $max;
+		$expireTime = $premium->getCurrentPremium()->getPremiumOfficierAdmiral();
+
+		if (!OfficiersLib::isOfficierActive(intval($expireTime))) {
+			return $max;
+		}
+
+		return $max + 1;
     }
 
     public static function getMaxColonies($astrophysicsTech): int
