@@ -56,29 +56,49 @@ class Expedition extends Missions
                 $fleet_points += ($count * $ships_points[$id]);
             }
 
-            // GET A NUMBER BETWEEN 0 AND 10 RANDOMLY
-            $this->hazard = mt_rand(0, 10);
+			/*
+			 * Chances from the rework
+			$events = [
+				'darkMatter' => 900, // 9%
+				'ships' => 0.22, // 22%
+				'resources' => 3250, // 32.5%
+				'pirates' => 580, // 5.8%
+				'aliens' => 260, // 2.6%
+				'delay' => 700, // 7%
+				'early' => 200, // 2%
+				'nothing' => 1860, // 18.6%
+				'blackHole' => 33, // 0.33%
+			];
+			*/
+
+			$hazardMap = [
+				'ships' => 0.22,
+				'resources' => 0.415,
+				'nothing' => 0.362,
+				'blackhole' => 0.003
+			];
+
+			$hazard = $this->getHazard($hazardMap);
 
             // EXPEDITION RESULT "HAZARD"
-            switch ($this->hazard) {
+            switch ($hazard) {
                 // BLACKHOLE
-                case (($this->hazard < 3)):
+                case 'blackhole':
+					$this->hazard = mt_rand(0, 2);
                     $this->hazardBlackhole($fleet_row, $current_fleet);
                     break;
-                    // NOTHING
-                case (($this->hazard == 3)):
+				// NOTHING
+                case 'nothing':
                     $this->hazardNothing($fleet_row);
                     break;
-                    // RESOURCES
-                case ((($this->hazard >= 4) && ($this->hazard < 7))):
+                // RESOURCES
+                case 'resources':
+					$this->hazard = mt_rand(4, 6);
                     $this->hazardResources($fleet_row, $fleet_capacity);
                     break;
-                    // NOTHING
-                case (($this->hazard == 7)):
-                    $this->hazardNothing($fleet_row);
-                    break;
-                    // SHIPS
-                case ((($this->hazard >= 8) && ($this->hazard < 11))):
+                // NOTHING
+                case 'ships':
+					$this->hazard = mt_rand(8, 10);
                     $this->hazardShips($fleet_row, $fleet_points, $current_fleet);
                     break;
             }
@@ -95,6 +115,30 @@ class Expedition extends Missions
             }
         }
     }
+
+	private function getHazard(array $optionsMap): string
+	{
+		$options = array_keys($optionsMap);
+		$probabilities = array_values($optionsMap);
+
+		$cumulativeProbabilities = [];
+		$cumulativeSum = 0;
+
+		foreach ($probabilities as $prob) {
+			$cumulativeSum += $prob;
+			$cumulativeProbabilities[] = $cumulativeSum;
+		}
+
+		$randomNum = mt_rand() / mt_getrandmax();
+
+		foreach ($cumulativeProbabilities as $index => $cumulativeProb) {
+			if ($randomNum < $cumulativeProb) {
+				return $options[$index];
+			}
+		}
+
+		return 'nothing';
+	}
 
     /**
      * hazardBlackhole
