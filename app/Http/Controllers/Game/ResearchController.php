@@ -217,17 +217,12 @@ class ResearchController extends BaseController
         }
     }
 
-    /**
-     * method isLaboratoryInQueue
-     * param
-     * return true if all clear, false if is anything in the queue
-     */
     private function isLaboratoryInQueue(): bool
     {
         if ($this->planet['planet_b_building_id'] != 0) {
             $current_queue = $this->planet['planet_b_building_id'];
 
-            $queue = explode(*;*, $current_queue);
+            $queue = explode(',', $current_queue);
 
             for ($i = 0; $i < MAX_BUILDING_QUEUE_SIZE; $i++) {
                 if (isset($queue[$i])) {
