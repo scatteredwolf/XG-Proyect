@@ -221,19 +221,17 @@ class ResearchController extends BaseController
     {
         if ($this->planet['planet_b_building_id'] != 0) {
             $current_queue = $this->planet['planet_b_building_id'];
-
             $queue = explode(';', $current_queue);
 
             for ($i = 0; $i < MAX_BUILDING_QUEUE_SIZE; $i++) {
                 if (isset($queue[$i])) {
-                    if(explode(',', $queue[$i][0] == 31)){
-                        return false;
+                    if (explode(',', $queue[$i][0] == 31)){
+                        return true;
                     }
                 }
             }
         }
-
-        return true;
+        return false;
     }
 
     /**
