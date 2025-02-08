@@ -226,12 +226,12 @@ class ResearchController extends BaseController
             for ($i = 0; $i < MAX_BUILDING_QUEUE_SIZE; $i++) {
                 if (isset($queue[$i])) {
                     if (explode(',', $queue[$i][0] == 31)){
-                        return true;
+                        return false;
                     }
                 }
             }
         }
-        return false;
+        return true;
     }
 
     /**
