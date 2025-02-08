@@ -13,7 +13,6 @@ use App\Models\Game\Research;
 class ResearchController extends BaseController
 {
     public const MODULE_ID = 6;
-
     private $_resource;
     private $_reslist;
     private $_is_working;
@@ -118,7 +117,6 @@ class ResearchController extends BaseController
 
         $parse['noresearch'] = (!$this->isLaboratoryInQueue() ? $this->langs->line('re_building_lab') : '');
         $parse['technolist'] = $technology_list;
-
         $this->page->display(
             $this->template->set(
                 'buildings/buildings_research',
@@ -222,10 +220,10 @@ class ResearchController extends BaseController
         if ($this->planet['planet_b_building_id'] != 0) {
             $current_queue = $this->planet['planet_b_building_id'];
             $queue = explode(';', $current_queue);
-
+            
             for ($i = 0; $i < MAX_BUILDING_QUEUE_SIZE; $i++) {
                 if (isset($queue[$i])) {
-                    if (explode(',', $queue[$i][0] == 31)){
+                    if (explode(',', $queue[$i])[0] == 31){
                         return false;
                     }
                 }
