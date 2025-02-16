@@ -3,7 +3,7 @@
 $lang = [
     'sy_remaining' => 'Remaining',
     'sy_shipyard_required' => 'You need to build a shipyard on this planet first!',
-    'sy_building_shipyard' => 'You can not build ships when the shipyard is upgrading',
+    'sy_building_shipyard' => 'You can not build ships when the shipyard or nanite factory are being upgrading',
     'sy_available' => 'Available: ',
     'sy_build_ships' => 'Build',
     'sy_protection_shield_only_one' => 'The shield can be built only once!',

@@ -470,7 +470,7 @@ class ShipyardController extends BaseController
     }
 
     /**
-     * Check if the robot factory, nanobots factory or hangar is being built
+     * Check if the nanobots factory or hangar is being built
      *
      * @return void
      */
@@ -482,7 +482,7 @@ class ShipyardController extends BaseController
         // unless ...
         if ($this->planet['planet_b_building_id'] != 0) {
             $queue = explode(';', $this->planet['planet_b_building_id']);
-            $not_allowed = [14, 15, 21];
+            $not_allowed = [15, 21];
 
             foreach ($queue as $building_data) {
                 $building = explode(',', $building_data);
