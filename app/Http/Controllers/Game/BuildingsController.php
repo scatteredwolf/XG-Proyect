@@ -428,7 +428,7 @@ class BuildingsController extends BaseController
      */
     private function isWorkInProgress($building_id)
     {
-        $working_buildings = [14, 15, 21];
+        $working_buildings = [15, 21];
 
         if ($building_id == 31 && Developments::isLabWorking($this->user)) {
             return true;
