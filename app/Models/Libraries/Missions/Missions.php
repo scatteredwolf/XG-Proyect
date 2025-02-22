@@ -426,6 +426,27 @@ class Missions extends Model
         }
     }
 
+    public function updateFoundShipsAndDefensePoints(int $playerId, array $found): void
+    {
+        $shipPoints = 0;
+        $defensePoints = 0;
+
+        foreach ($found as $unit => $foundCount) {
+            if ($unit >= 401) {
+                $defensePoints += StatisticsLibrary::calculatePoints($unit, 1) * $foundCount;
+            } else {
+                $shipPoints += StatisticsLibrary::calculatePoints($unit, 1) * $foundCount;
+            }
+        }
+
+        $this->db->query('
+            UPDATE `' . USERS_STATISTICS . "` AS us SET
+                us.`user_statistic_ships_points` = us.`user_statistic_ships_points` + '" . $shipPoints . "' ,
+                us.`user_statistic_defenses_points` = us.`user_statistic_defenses_points` + '" . $defensePoints . "'
+            WHERE us.`user_statistic_user_id` = '" . $playerId . "'
+        ");
+    }
+
     public function updateLostShipsAndDefensePoints(int $playerId, array $lost): void
     {
         $shipPoints = 0;
