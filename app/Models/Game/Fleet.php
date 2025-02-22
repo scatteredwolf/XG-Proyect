@@ -42,6 +42,31 @@ class Fleet extends Model
         return [];
     }
 
+    public function getAllShipsWithUser()
+    {
+        return $this->db->queryFetchAll(
+            'SELECT
+                    p.`planet_user_id`,
+                    s.`ship_small_cargo_ship`,
+                    s.`ship_big_cargo_ship`,
+                    s.`ship_light_fighter`,
+                    s.`ship_heavy_fighter`,
+                    s.`ship_cruiser`,
+                    s.`ship_battleship`,
+                    s.`ship_colony_ship`,
+                    s.`ship_recycler`,
+                    s.`ship_espionage_probe`,
+                    s.`ship_bomber`,
+                    s.`ship_solar_satellite`,
+                    s.`ship_destroyer`,
+                    s.`ship_deathstar`,
+                    s.`ship_battlecruiser`
+                FROM `' . SHIPS . '` AS s
+                JOIN `' . PLANETS . '` AS p
+                ON s.ship_planet_id = p.planet_id;'
+        );
+    }
+
     /**
      * Get all fleets by user id or owner
      *

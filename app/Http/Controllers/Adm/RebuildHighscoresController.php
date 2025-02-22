@@ -5,10 +5,15 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Adm;
 
 use App\Core\BaseController;
+use App\Core\Objects;
 use App\Libraries\Adm\AdministrationLib as Administration;
 use App\Libraries\FormatLib as Format;
 use App\Libraries\Functions;
 use App\Libraries\StatisticsLibrary as Statistics;
+use App\Models\Libraries\StatisticsLibrary as StatisticsModel;
+use App\Models\Game\Fleet;
+use App\Models\Adm\Fleets;
+use App\Libraries\FleetsLib;
 
 class RebuildHighscoresController extends BaseController
 {
@@ -46,9 +51,40 @@ class RebuildHighscoresController extends BaseController
      */
     private function runAction(): void
     {
+        $modelsObject = new StatisticsModel();
+
+        /*
+        * Reset all Users Shippoints to 0
+        * then calculates the points of all ships in each fleet
+        * and adds these to the corresponding user
+        */
+        $fleetsModel = new Fleets();
+        $fleetsModel->getAllFleets();
+        $modelsObject->deletePoints("ships");
+        foreach ($fleetsModel->getAllFleets() as $fleet) {
+            $totalPoints = 0;
+            foreach (FleetsLib::getFleetShipsArray($fleet['fleet_array']) as $ship => $amount) {
+                $totalPoints += Statistics::calculatePoints($ship,1) * $amount;
+            }
+            $modelsObject->modifyPoints("ships", $totalPoints, $fleet['fleet_owner']);
+        }
+        
+        // Sums up all ships on planets and adds these to the corresponding user
+        $fleet = new Fleet();
+        $stationaryFleets = $fleet->getAllShipsWithUser();
+        foreach ($stationaryFleets as $fleet) {
+            $totalPoints = 0;
+            foreach ($fleet as $ship => $amount) {
+                if ($ship != 'planet_user_id') {
+                    $totalPoints += Statistics::calculatePoints(array_search($ship, Objects::getInstance()->getObjects()),1) * $amount;
+                }
+            }
+            $modelsObject->modifyPoints("ships", $totalPoints, $fleet['planet_user_id']);
+        }
+
+        
         $stObject = new Statistics();
         $this->result = $stObject->makeStats();
-
         Functions::updateConfig('stat_last_update', $this->result['stats_time']);
     }
 
