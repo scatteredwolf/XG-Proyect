@@ -427,7 +427,7 @@ class Attack extends Missions
             ],
         ]);
 
-        if ($moon_exists['planet_id'] != null) {
+        if ($moon_exists !== null) {
             return;
         }
 
